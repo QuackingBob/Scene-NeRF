@@ -1,4 +1,5 @@
 import torch.nn as nn
+import torch
 import numpy as np
 
 class OctreeNode:
@@ -76,11 +77,41 @@ class VQAD(nn.Module):
         super().__init__()
 
 
-class DensityFunction(nn.Module):
-    def __init__(self) -> None:
+class DensityHiddenEncoding(nn.Module):
+    def __init__(self, latent_dim: int, hidden_size: int) -> None:
         super().__init__()
+        self.fc = nn.Linear(latent_dim, hidden_size)
+    
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        return self.fc(x)
+
+
+class DensityFunction(nn.Module):
+    def __init__(self, latent_dim: int) -> None:
+        super().__init__()
+        self.fc = nn.Linear(latent_dim, 1)
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        return self.fc(x)
 
 
 class RGBAFunction(nn.Module):
-    def __init__(self) -> None:
+    def __init__(self, density_dim: int) -> None:
         super().__init__()
+        self.fc1 = nn.Linear(density_dim + 2, 128)
+        self.fc2 = nn.Linear(128, 64)
+        self.fc_r = nn.Linear(64, 1)
+        self.fc_g = nn.Linear(64, 1)
+        self.fc_b = nn.Linear(64, 1)
+        self.fc_a = nn.Linear(64, 1)
+
+    def forward(self, density: torch.Tensor, heading: torch.Tensor) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]:
+        x = torch.cat([density, heading], dim=1)
+        x = nn.relu(self.fc1(x))
+        x = nn.relu(self.fc2(x))
+        r = self.fc_r(x)
+        g = self.fc_g(x)
+        b = self.fc_b(x)
+        a = self.fc_a(x)
+        return r, g, b, a
