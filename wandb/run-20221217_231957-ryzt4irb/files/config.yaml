@@ -1,0 +1,328 @@
+wandb_version: 1
+
+_wandb:
+  desc: null
+  value:
+    cli_version: 0.13.7
+    code_path: code/kaolin-wisp/app/main.py
+    framework: torch
+    is_jupyter_run: false
+    is_kaggle_kernel: false
+    python_version: 3.8.15
+    start_time: 1671347997.281088
+    t:
+      1:
+      - 1
+      - 41
+      - 55
+      2:
+      - 1
+      - 41
+      - 55
+      3:
+      - 13
+      - 16
+      - 23
+      - 35
+      4: 3.8.15
+      5: 0.13.7
+      8:
+      - 3
+      - 5
+activation_type:
+  desc: null
+  value: relu
+ao:
+  desc: null
+  value: false
+as_type:
+  desc: null
+  value: none
+base_lod:
+  desc: null
+  value: 5
+batch_size:
+  desc: null
+  value: 1
+bg_color:
+  desc: null
+  value: white
+camera_clamp:
+  desc: null
+  value:
+  - 0
+  - 10
+camera_fov:
+  desc: null
+  value: 30
+camera_lookat:
+  desc: null
+  value:
+  - 0
+  - 0
+  - 0
+camera_origin:
+  desc: null
+  value:
+  - -3.0
+  - 0.65
+  - -3.0
+camera_proj:
+  desc: null
+  value: persp
+codebook_bitwidth:
+  desc: null
+  value: 4
+config:
+  desc: null
+  value: kaolin-wisp/configs/vqad_nerf.yaml
+dataloader_num_workers:
+  desc: null
+  value: 0
+dataset_num_workers:
+  desc: null
+  value: 4
+dataset_path:
+  desc: null
+  value: /V8/V8_/
+dataset_type:
+  desc: null
+  value: multiview
+decoder_type:
+  desc: null
+  value: basic
+detect_anomaly:
+  desc: null
+  value: false
+embedder_type:
+  desc: null
+  value: positional
+epochs:
+  desc: null
+  value: 50
+exp_name:
+  desc: null
+  value: test-vqad-nerf
+feature_bias:
+  desc: null
+  value: 0.0
+feature_dim:
+  desc: null
+  value: 5
+feature_std:
+  desc: null
+  value: 0.01
+get_normals:
+  desc: null
+  value: false
+grid_lr_weight:
+  desc: null
+  value: 100.0
+grid_type:
+  desc: null
+  value: CodebookOctreeGrid
+grow_every:
+  desc: null
+  value: -1
+growth_strategy:
+  desc: null
+  value: increase
+hidden_dim:
+  desc: null
+  value: 128
+interpolation_type:
+  desc: null
+  value: linear
+layer_type:
+  desc: null
+  value: none
+log_2d:
+  desc: null
+  value: false
+log_dir:
+  desc: null
+  value: _results/logs/runs/
+log_level:
+  desc: null
+  value: 20
+log_tb_every:
+  desc: null
+  value: 5
+lr:
+  desc: null
+  value: 0.001
+matcap_path:
+  desc: null
+  value: data/matcaps/matcap_plastic_yellow.jpg
+max_grid_res:
+  desc: null
+  value: 2048
+min_dis:
+  desc: null
+  value: 0.0003
+mip:
+  desc: null
+  value: 2
+mode_mesh_norm:
+  desc: null
+  value: sphere
+model_format:
+  desc: null
+  value: full
+multiscale_type:
+  desc: null
+  value: sum
+multiview_dataset_format:
+  desc: null
+  value: rtmv
+nef_type:
+  desc: null
+  value: NeuralRadianceField
+noise_std:
+  desc: null
+  value: 0.0
+num_layers:
+  desc: null
+  value: 1
+num_lods:
+  desc: null
+  value: 4
+num_rays_sampled_per_img:
+  desc: null
+  value: 4096
+num_samples:
+  desc: null
+  value: 100000
+num_samples_on_mesh:
+  desc: null
+  value: 100000000
+num_steps:
+  desc: null
+  value: 16
+only_last:
+  desc: null
+  value: false
+optimizer_type:
+  desc: null
+  value: rmsprop
+out_dim:
+  desc: null
+  value: 4
+perf:
+  desc: null
+  value: false
+pos_multires:
+  desc: null
+  value: 10
+position_input:
+  desc: null
+  value: false
+pretrained:
+  desc: null
+  value: null
+prune_density_decay:
+  desc: null
+  value: 0.6
+prune_every:
+  desc: null
+  value: -1
+prune_min_density:
+  desc: null
+  value: 2.956033378250884
+random_lod:
+  desc: null
+  value: false
+raymarch_type:
+  desc: null
+  value: voxel
+render_batch:
+  desc: null
+  value: 4000
+render_res:
+  desc: null
+  value:
+  - 1024
+  - 1024
+render_tb_every:
+  desc: null
+  value: 10
+resample:
+  desc: null
+  value: false
+resample_every:
+  desc: null
+  value: 1
+rgb_loss:
+  desc: null
+  value: 1.0
+sample_mode:
+  desc: null
+  value:
+  - rand
+  - near
+  - near
+  - trace
+  - trace
+sample_tex:
+  desc: null
+  value: false
+samples_per_voxel:
+  desc: null
+  value: 256
+save_as_new:
+  desc: null
+  value: false
+save_every:
+  desc: null
+  value: 10
+shading_mode:
+  desc: null
+  value: rb
+shadow:
+  desc: null
+  value: false
+skip:
+  desc: null
+  value: null
+step_size:
+  desc: null
+  value: 1.0
+tracer_type:
+  desc: null
+  value: PackedRFTracer
+trainer_type:
+  desc: null
+  value: MultiviewTrainer
+tree_type:
+  desc: null
+  value: quad
+valid_every:
+  desc: null
+  value: 50
+valid_only:
+  desc: null
+  value: false
+valid_split:
+  desc: null
+  value: val
+view_multires:
+  desc: null
+  value: 4
+wandb_entity:
+  desc: null
+  value: null
+wandb_project:
+  desc: null
+  value: vector-quantized-auto-decoder
+wandb_run_name:
+  desc: null
+  value: test-vqad-nerf/V8
+wandb_viz_nerf_angles:
+  desc: null
+  value: 20
+wandb_viz_nerf_distance:
+  desc: null
+  value: 5
+weight_decay:
+  desc: null
+  value: 0

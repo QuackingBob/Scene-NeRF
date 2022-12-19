@@ -1,0 +1,63 @@
+{
+    "os": "Windows-10-10.0.22621-SP0",
+    "python": "3.8.15",
+    "heartbeatAt": "2022-12-18T07:20:51.368327",
+    "startedAt": "2022-12-18T07:20:49.276411",
+    "docker": null,
+    "cuda": null,
+    "args": [
+        "--config",
+        "kaolin-wisp/configs/vqad_nerf.yaml",
+        "--dataset-path",
+        "../V8/V8_/",
+        "--dataset-num-workers",
+        "4",
+        "--wandb-project",
+        "vector-quantized-auto-decoder",
+        "--wandb-run-name",
+        "test-vqad-nerf/V8",
+        "--wandb-viz-nerf-distance",
+        "5"
+    ],
+    "state": "running",
+    "program": "kaolin-wisp/app/main.py",
+    "codePath": "kaolin-wisp\\app\\main.py",
+    "git": {
+        "remote": "https://github.com/QuackingBob/Scene-NeRF.git",
+        "commit": "8af07a0ed4ff6d8ddb464040c18a4108c3fbdc6c"
+    },
+    "email": "quackingbob101@gmail.com",
+    "root": "C:/Users/amanj/Documents/VSCode Projects/Scene-NeRF",
+    "host": "Aman-Ryzen",
+    "username": "amanj",
+    "executable": "C:\\Users\\amanj\\miniconda3\\envs\\wisp\\python.exe",
+    "cpu_count": 8,
+    "cpu_count_logical": 16,
+    "cpu_freq": {
+        "current": 3301.0,
+        "min": 0.0,
+        "max": 3301.0
+    },
+    "cpu_freq_per_core": [
+        {
+            "current": 3301.0,
+            "min": 0.0,
+            "max": 3301.0
+        }
+    ],
+    "disk": {
+        "total": 930.7678871154785,
+        "used": 722.1978149414062
+    },
+    "gpu": "NVIDIA GeForce RTX 3060 Laptop GPU",
+    "gpu_count": 1,
+    "gpu_devices": [
+        {
+            "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+            "memory_total": 6442450944
+        }
+    ],
+    "memory": {
+        "total": 15.40658187866211
+    }
+}

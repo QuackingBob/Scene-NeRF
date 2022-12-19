@@ -1,0 +1,15 @@
+2022-12-17 23:22:36,100|    INFO| Active LODs: [5, 6, 7, 8]
+2022-12-17 23:22:36,101|    INFO| Position Embed Dim: 63
+2022-12-17 23:22:36,101|    INFO| View Embed Dim: 27
+Traceback (most recent call last):
+  File "kaolin-wisp/app/main.py", line 42, in <module>
+    pipeline, train_dataset, device = get_modules_from_config(args)
+  File "c:\users\amanj\documents\vscode projects\scene-nerf\kaolin-wisp\wisp\config_parser.py", line 448, in get_modules_from_config
+    train_dataset.init()
+  File "c:\users\amanj\documents\vscode projects\scene-nerf\kaolin-wisp\wisp\datasets\multiview_dataset.py", line 66, in init
+    self.data = self.get_images()
+  File "c:\users\amanj\documents\vscode projects\scene-nerf\kaolin-wisp\wisp\datasets\multiview_dataset.py", line 96, in get_images
+    data = load_rtmv_data(self.root, split,
+  File "c:\users\amanj\documents\vscode projects\scene-nerf\kaolin-wisp\wisp\datasets\formats\rtmv.py", line 141, in load_rtmv_data
+    assert (len(json_files) > 0 and "No JSON files found")
+AssertionError

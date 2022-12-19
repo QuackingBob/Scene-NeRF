@@ -1,0 +1,178 @@
+2022-12-17 23:20:49,297 INFO    StreamThr :8196 [internal.py:wandb_internal():87] W&B internal server running at pid: 8196, started at: 2022-12-17 23:20:49.296113
+2022-12-17 23:20:49,298 DEBUG   HandlerThread:8196 [handler.py:handle_request():139] handle_request: status
+2022-12-17 23:20:49,302 DEBUG   SenderThread:8196 [sender.py:send_request():317] send_request: status
+2022-12-17 23:20:49,303 DEBUG   SenderThread:8196 [sender.py:send():303] send: header
+2022-12-17 23:20:49,303 INFO    WriterThread:8196 [datastore.py:open_for_write():75] open: C:\Users\amanj\Documents\VSCode Projects\Scene-NeRF\wandb\run-20221217_232049-35ql2ecd\run-35ql2ecd.wandb
+2022-12-17 23:20:49,354 DEBUG   SenderThread:8196 [sender.py:send():303] send: run
+2022-12-17 23:20:49,685 DEBUG   HandlerThread:8196 [handler.py:handle_request():139] handle_request: check_version
+2022-12-17 23:20:49,691 INFO    SenderThread:8196 [dir_watcher.py:__init__():216] watching files in: C:\Users\amanj\Documents\VSCode Projects\Scene-NeRF\wandb\run-20221217_232049-35ql2ecd\files
+2022-12-17 23:20:49,691 INFO    SenderThread:8196 [sender.py:_start_run_threads():928] run started: 35ql2ecd with start time 1671348049.294097
+2022-12-17 23:20:49,691 DEBUG   SenderThread:8196 [sender.py:send():303] send: summary
+2022-12-17 23:20:49,692 INFO    SenderThread:8196 [sender.py:_save_file():1171] saving file wandb-summary.json with policy end
+2022-12-17 23:20:49,692 DEBUG   SenderThread:8196 [sender.py:send_request():317] send_request: check_version
+2022-12-17 23:20:49,798 DEBUG   HandlerThread:8196 [handler.py:handle_request():139] handle_request: run_start
+2022-12-17 23:20:50,696 INFO    Thread-17 :8196 [dir_watcher.py:_on_file_created():275] file/dir created: C:\Users\amanj\Documents\VSCode Projects\Scene-NeRF\wandb\run-20221217_232049-35ql2ecd\files\wandb-summary.json
+2022-12-17 23:20:51,328 DEBUG   HandlerThread:8196 [system_info.py:__init__():31] System info init
+2022-12-17 23:20:51,328 DEBUG   HandlerThread:8196 [system_info.py:__init__():46] System info init done
+2022-12-17 23:20:51,328 INFO    HandlerThread:8196 [system_monitor.py:start():150] Starting system monitor
+2022-12-17 23:20:51,328 INFO    SystemMonitor:8196 [system_monitor.py:_start():116] Starting system asset monitoring threads
+2022-12-17 23:20:51,329 INFO    HandlerThread:8196 [system_monitor.py:probe():171] Collecting system info
+2022-12-17 23:20:51,335 INFO    SystemMonitor:8196 [interfaces.py:start():168] Started cpu
+2022-12-17 23:20:51,337 INFO    SystemMonitor:8196 [interfaces.py:start():168] Started disk
+2022-12-17 23:20:51,337 INFO    SystemMonitor:8196 [interfaces.py:start():168] Started gpu
+2022-12-17 23:20:51,350 INFO    SystemMonitor:8196 [interfaces.py:start():168] Started memory
+2022-12-17 23:20:51,368 DEBUG   HandlerThread:8196 [system_info.py:probe():195] Probing system
+2022-12-17 23:20:51,368 INFO    SystemMonitor:8196 [interfaces.py:start():168] Started network
+2022-12-17 23:20:51,370 DEBUG   HandlerThread:8196 [system_info.py:_probe_git():180] Probing git
+2022-12-17 23:20:51,475 DEBUG   HandlerThread:8196 [system_info.py:_probe_git():188] Probing git done
+2022-12-17 23:20:51,475 DEBUG   HandlerThread:8196 [system_info.py:probe():241] Probing system done
+2022-12-17 23:20:51,475 DEBUG   HandlerThread:8196 [system_monitor.py:probe():180] {'os': 'Windows-10-10.0.22621-SP0', 'python': '3.8.15', 'heartbeatAt': '2022-12-18T07:20:51.368327', 'startedAt': '2022-12-18T07:20:49.276411', 'docker': None, 'cuda': None, 'args': ('--config', 'kaolin-wisp/configs/vqad_nerf.yaml', '--dataset-path', '../V8/V8_/', '--dataset-num-workers', '4', '--wandb-project', 'vector-quantized-auto-decoder', '--wandb-run-name', 'test-vqad-nerf/V8', '--wandb-viz-nerf-distance', '5'), 'state': 'running', 'program': 'kaolin-wisp/app/main.py', 'codePath': 'kaolin-wisp\\app\\main.py', 'git': {'remote': 'https://github.com/QuackingBob/Scene-NeRF.git', 'commit': '8af07a0ed4ff6d8ddb464040c18a4108c3fbdc6c'}, 'email': 'quackingbob101@gmail.com', 'root': 'C:/Users/amanj/Documents/VSCode Projects/Scene-NeRF', 'host': 'Aman-Ryzen', 'username': 'amanj', 'executable': 'C:\\Users\\amanj\\miniconda3\\envs\\wisp\\python.exe', 'cpu_count': 8, 'cpu_count_logical': 16, 'cpu_freq': {'current': 3301.0, 'min': 0.0, 'max': 3301.0}, 'cpu_freq_per_core': [{'current': 3301.0, 'min': 0.0, 'max': 3301.0}], 'disk': {'total': 930.7678871154785, 'used': 722.1978149414062}, 'gpu': 'NVIDIA GeForce RTX 3060 Laptop GPU', 'gpu_count': 1, 'gpu_devices': [{'name': 'NVIDIA GeForce RTX 3060 Laptop GPU', 'memory_total': 6442450944}], 'memory': {'total': 15.40658187866211}}
+2022-12-17 23:20:51,476 INFO    HandlerThread:8196 [system_monitor.py:probe():181] Finished collecting system info
+2022-12-17 23:20:51,476 INFO    HandlerThread:8196 [system_monitor.py:probe():184] Publishing system info
+2022-12-17 23:20:51,476 DEBUG   HandlerThread:8196 [system_info.py:_save_pip():51] Saving list of pip packages installed into the current environment
+2022-12-17 23:20:51,477 DEBUG   HandlerThread:8196 [system_info.py:_save_pip():67] Saving pip packages done
+2022-12-17 23:20:51,477 DEBUG   HandlerThread:8196 [system_info.py:_save_conda():74] Saving list of conda packages installed into the current environment
+2022-12-17 23:20:51,697 INFO    Thread-17 :8196 [dir_watcher.py:_on_file_created():275] file/dir created: C:\Users\amanj\Documents\VSCode Projects\Scene-NeRF\wandb\run-20221217_232049-35ql2ecd\files\conda-environment.yaml
+2022-12-17 23:20:51,697 INFO    Thread-17 :8196 [dir_watcher.py:_on_file_created():275] file/dir created: C:\Users\amanj\Documents\VSCode Projects\Scene-NeRF\wandb\run-20221217_232049-35ql2ecd\files\requirements.txt
+2022-12-17 23:20:53,949 DEBUG   HandlerThread:8196 [system_info.py:_save_conda():86] Saving conda packages done
+2022-12-17 23:20:53,949 DEBUG   HandlerThread:8196 [system_info.py:_save_code():89] Saving code
+2022-12-17 23:20:54,000 DEBUG   HandlerThread:8196 [system_info.py:_save_code():110] Saving code done
+2022-12-17 23:20:54,001 DEBUG   HandlerThread:8196 [system_info.py:_save_patches():127] Saving git patches
+2022-12-17 23:20:54,247 DEBUG   HandlerThread:8196 [system_info.py:_save_patches():169] Saving git patches done
+2022-12-17 23:20:54,249 INFO    HandlerThread:8196 [system_monitor.py:probe():186] Finished publishing system info
+2022-12-17 23:20:54,339 DEBUG   SenderThread:8196 [sender.py:send():303] send: files
+2022-12-17 23:20:54,340 INFO    SenderThread:8196 [sender.py:_save_file():1171] saving file wandb-metadata.json with policy now
+2022-12-17 23:20:54,341 INFO    SenderThread:8196 [sender.py:_save_file():1171] saving file code\kaolin-wisp\app\main.py with policy now
+2022-12-17 23:20:54,350 DEBUG   HandlerThread:8196 [handler.py:handle_request():139] handle_request: stop_status
+2022-12-17 23:20:54,350 DEBUG   SenderThread:8196 [sender.py:send_request():317] send_request: stop_status
+2022-12-17 23:20:54,493 DEBUG   SenderThread:8196 [sender.py:send():303] send: telemetry
+2022-12-17 23:20:54,496 DEBUG   SenderThread:8196 [sender.py:send():303] send: exit
+2022-12-17 23:20:54,496 INFO    SenderThread:8196 [sender.py:send_exit():442] handling exit code: 1
+2022-12-17 23:20:54,496 INFO    SenderThread:8196 [sender.py:send_exit():444] handling runtime: 4
+2022-12-17 23:20:54,498 INFO    SenderThread:8196 [sender.py:_save_file():1171] saving file wandb-summary.json with policy end
+2022-12-17 23:20:54,498 INFO    SenderThread:8196 [sender.py:send_exit():450] send defer
+2022-12-17 23:20:54,499 DEBUG   HandlerThread:8196 [handler.py:handle_request():139] handle_request: defer
+2022-12-17 23:20:54,499 INFO    HandlerThread:8196 [handler.py:handle_request_defer():162] handle defer: 0
+2022-12-17 23:20:54,499 DEBUG   SenderThread:8196 [sender.py:send_request():317] send_request: defer
+2022-12-17 23:20:54,499 INFO    SenderThread:8196 [sender.py:send_request_defer():459] handle sender defer: 0
+2022-12-17 23:20:54,499 INFO    SenderThread:8196 [sender.py:transition_state():463] send defer: 1
+2022-12-17 23:20:54,499 DEBUG   HandlerThread:8196 [handler.py:handle_request():139] handle_request: defer
+2022-12-17 23:20:54,499 INFO    HandlerThread:8196 [handler.py:handle_request_defer():162] handle defer: 1
+2022-12-17 23:20:54,499 INFO    HandlerThread:8196 [system_monitor.py:finish():160] Stopping system monitor
+2022-12-17 23:20:54,500 DEBUG   SystemMonitor:8196 [system_monitor.py:_start():130] Starting system metrics aggregation loop
+2022-12-17 23:20:54,500 DEBUG   SystemMonitor:8196 [system_monitor.py:_start():137] Finished system metrics aggregation loop
+2022-12-17 23:20:54,500 DEBUG   SystemMonitor:8196 [system_monitor.py:_start():141] Publishing last batch of metrics
+2022-12-17 23:20:54,512 INFO    HandlerThread:8196 [interfaces.py:finish():175] Joined cpu
+2022-12-17 23:20:54,512 INFO    HandlerThread:8196 [interfaces.py:finish():175] Joined disk
+2022-12-17 23:20:54,556 INFO    HandlerThread:8196 [interfaces.py:finish():175] Joined gpu
+2022-12-17 23:20:54,556 INFO    HandlerThread:8196 [interfaces.py:finish():175] Joined memory
+2022-12-17 23:20:54,558 INFO    HandlerThread:8196 [interfaces.py:finish():175] Joined network
+2022-12-17 23:20:54,558 DEBUG   SenderThread:8196 [sender.py:send_request():317] send_request: defer
+2022-12-17 23:20:54,558 INFO    SenderThread:8196 [sender.py:send_request_defer():459] handle sender defer: 1
+2022-12-17 23:20:54,559 INFO    SenderThread:8196 [sender.py:transition_state():463] send defer: 2
+2022-12-17 23:20:54,560 DEBUG   HandlerThread:8196 [handler.py:handle_request():139] handle_request: defer
+2022-12-17 23:20:54,560 INFO    HandlerThread:8196 [handler.py:handle_request_defer():162] handle defer: 2
+2022-12-17 23:20:54,560 DEBUG   SenderThread:8196 [sender.py:send():303] send: stats
+2022-12-17 23:20:54,560 DEBUG   SenderThread:8196 [sender.py:send_request():317] send_request: defer
+2022-12-17 23:20:54,561 INFO    SenderThread:8196 [sender.py:send_request_defer():459] handle sender defer: 2
+2022-12-17 23:20:54,562 INFO    SenderThread:8196 [sender.py:transition_state():463] send defer: 3
+2022-12-17 23:20:54,563 DEBUG   HandlerThread:8196 [handler.py:handle_request():139] handle_request: defer
+2022-12-17 23:20:54,563 INFO    HandlerThread:8196 [handler.py:handle_request_defer():162] handle defer: 3
+2022-12-17 23:20:54,563 DEBUG   SenderThread:8196 [sender.py:send_request():317] send_request: defer
+2022-12-17 23:20:54,563 INFO    SenderThread:8196 [sender.py:send_request_defer():459] handle sender defer: 3
+2022-12-17 23:20:54,564 INFO    SenderThread:8196 [sender.py:transition_state():463] send defer: 4
+2022-12-17 23:20:54,564 DEBUG   HandlerThread:8196 [handler.py:handle_request():139] handle_request: defer
+2022-12-17 23:20:54,564 INFO    HandlerThread:8196 [handler.py:handle_request_defer():162] handle defer: 4
+2022-12-17 23:20:54,564 DEBUG   SenderThread:8196 [sender.py:send():303] send: summary
+2022-12-17 23:20:54,565 INFO    SenderThread:8196 [sender.py:_save_file():1171] saving file wandb-summary.json with policy end
+2022-12-17 23:20:54,565 DEBUG   SenderThread:8196 [sender.py:send_request():317] send_request: defer
+2022-12-17 23:20:54,565 INFO    SenderThread:8196 [sender.py:send_request_defer():459] handle sender defer: 4
+2022-12-17 23:20:54,565 INFO    SenderThread:8196 [sender.py:transition_state():463] send defer: 5
+2022-12-17 23:20:54,566 DEBUG   HandlerThread:8196 [handler.py:handle_request():139] handle_request: defer
+2022-12-17 23:20:54,566 INFO    HandlerThread:8196 [handler.py:handle_request_defer():162] handle defer: 5
+2022-12-17 23:20:54,566 DEBUG   SenderThread:8196 [sender.py:send_request():317] send_request: defer
+2022-12-17 23:20:54,566 INFO    SenderThread:8196 [sender.py:send_request_defer():459] handle sender defer: 5
+2022-12-17 23:20:54,722 INFO    Thread-17 :8196 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Users\amanj\Documents\VSCode Projects\Scene-NeRF\wandb\run-20221217_232049-35ql2ecd\files\conda-environment.yaml
+2022-12-17 23:20:54,722 INFO    Thread-17 :8196 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Users\amanj\Documents\VSCode Projects\Scene-NeRF\wandb\run-20221217_232049-35ql2ecd\files\wandb-summary.json
+2022-12-17 23:20:54,723 INFO    Thread-17 :8196 [dir_watcher.py:_on_file_created():275] file/dir created: C:\Users\amanj\Documents\VSCode Projects\Scene-NeRF\wandb\run-20221217_232049-35ql2ecd\files\code\kaolin-wisp\app\main.py
+2022-12-17 23:20:54,723 INFO    Thread-17 :8196 [dir_watcher.py:_on_file_created():275] file/dir created: C:\Users\amanj\Documents\VSCode Projects\Scene-NeRF\wandb\run-20221217_232049-35ql2ecd\files\output.log
+2022-12-17 23:20:54,723 INFO    Thread-17 :8196 [dir_watcher.py:_on_file_created():275] file/dir created: C:\Users\amanj\Documents\VSCode Projects\Scene-NeRF\wandb\run-20221217_232049-35ql2ecd\files\wandb-metadata.json
+2022-12-17 23:20:54,723 INFO    Thread-17 :8196 [dir_watcher.py:_on_file_created():275] file/dir created: C:\Users\amanj\Documents\VSCode Projects\Scene-NeRF\wandb\run-20221217_232049-35ql2ecd\files\code\kaolin-wisp\app
+2022-12-17 23:20:54,723 INFO    Thread-17 :8196 [dir_watcher.py:_on_file_created():275] file/dir created: C:\Users\amanj\Documents\VSCode Projects\Scene-NeRF\wandb\run-20221217_232049-35ql2ecd\files\code\kaolin-wisp
+2022-12-17 23:20:54,723 INFO    Thread-17 :8196 [dir_watcher.py:_on_file_created():275] file/dir created: C:\Users\amanj\Documents\VSCode Projects\Scene-NeRF\wandb\run-20221217_232049-35ql2ecd\files\code
+2022-12-17 23:20:54,772 INFO    SenderThread:8196 [sender.py:transition_state():463] send defer: 6
+2022-12-17 23:20:54,772 DEBUG   HandlerThread:8196 [handler.py:handle_request():139] handle_request: defer
+2022-12-17 23:20:54,772 INFO    HandlerThread:8196 [handler.py:handle_request_defer():162] handle defer: 6
+2022-12-17 23:20:54,773 DEBUG   SenderThread:8196 [sender.py:send_request():317] send_request: defer
+2022-12-17 23:20:54,773 INFO    SenderThread:8196 [sender.py:send_request_defer():459] handle sender defer: 6
+2022-12-17 23:20:54,885 INFO    Thread-34 :8196 [upload_job.py:push():143] Uploaded file C:\Users\amanj\AppData\Local\Temp\tmpno099hb5wandb\2k3h0az9-wandb-metadata.json
+2022-12-17 23:20:54,939 INFO    Thread-35 :8196 [upload_job.py:push():143] Uploaded file C:\Users\amanj\AppData\Local\Temp\tmpno099hb5wandb\2zswjctg-code/kaolin-wisp/app/main.py
+2022-12-17 23:20:55,471 DEBUG   HandlerThread:8196 [handler.py:handle_request():139] handle_request: poll_exit
+2022-12-17 23:20:55,735 INFO    Thread-17 :8196 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Users\amanj\Documents\VSCode Projects\Scene-NeRF\wandb\run-20221217_232049-35ql2ecd\files\config.yaml
+2022-12-17 23:20:56,746 INFO    Thread-17 :8196 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Users\amanj\Documents\VSCode Projects\Scene-NeRF\wandb\run-20221217_232049-35ql2ecd\files\output.log
+2022-12-17 23:20:58,504 INFO    SenderThread:8196 [sender.py:transition_state():463] send defer: 7
+2022-12-17 23:20:58,504 DEBUG   SenderThread:8196 [sender.py:send_request():317] send_request: poll_exit
+2022-12-17 23:20:58,505 DEBUG   HandlerThread:8196 [handler.py:handle_request():139] handle_request: defer
+2022-12-17 23:20:58,505 INFO    HandlerThread:8196 [handler.py:handle_request_defer():162] handle defer: 7
+2022-12-17 23:20:58,505 DEBUG   SenderThread:8196 [sender.py:send_request():317] send_request: defer
+2022-12-17 23:20:58,505 INFO    SenderThread:8196 [sender.py:send_request_defer():459] handle sender defer: 7
+2022-12-17 23:20:58,506 INFO    SenderThread:8196 [dir_watcher.py:finish():362] shutting down directory watcher
+2022-12-17 23:20:58,765 INFO    SenderThread:8196 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Users\amanj\Documents\VSCode Projects\Scene-NeRF\wandb\run-20221217_232049-35ql2ecd\files\output.log
+2022-12-17 23:20:58,765 INFO    SenderThread:8196 [dir_watcher.py:finish():392] scan: C:\Users\amanj\Documents\VSCode Projects\Scene-NeRF\wandb\run-20221217_232049-35ql2ecd\files
+2022-12-17 23:20:58,765 INFO    SenderThread:8196 [dir_watcher.py:finish():406] scan save: C:\Users\amanj\Documents\VSCode Projects\Scene-NeRF\wandb\run-20221217_232049-35ql2ecd\files\conda-environment.yaml conda-environment.yaml
+2022-12-17 23:20:58,767 INFO    SenderThread:8196 [dir_watcher.py:finish():406] scan save: C:\Users\amanj\Documents\VSCode Projects\Scene-NeRF\wandb\run-20221217_232049-35ql2ecd\files\config.yaml config.yaml
+2022-12-17 23:20:58,770 INFO    SenderThread:8196 [dir_watcher.py:finish():406] scan save: C:\Users\amanj\Documents\VSCode Projects\Scene-NeRF\wandb\run-20221217_232049-35ql2ecd\files\output.log output.log
+2022-12-17 23:20:58,772 INFO    SenderThread:8196 [dir_watcher.py:finish():406] scan save: C:\Users\amanj\Documents\VSCode Projects\Scene-NeRF\wandb\run-20221217_232049-35ql2ecd\files\requirements.txt requirements.txt
+2022-12-17 23:20:58,776 INFO    SenderThread:8196 [dir_watcher.py:finish():406] scan save: C:\Users\amanj\Documents\VSCode Projects\Scene-NeRF\wandb\run-20221217_232049-35ql2ecd\files\wandb-metadata.json wandb-metadata.json
+2022-12-17 23:20:58,776 INFO    SenderThread:8196 [dir_watcher.py:finish():406] scan save: C:\Users\amanj\Documents\VSCode Projects\Scene-NeRF\wandb\run-20221217_232049-35ql2ecd\files\wandb-summary.json wandb-summary.json
+2022-12-17 23:20:58,783 INFO    SenderThread:8196 [dir_watcher.py:finish():406] scan save: C:\Users\amanj\Documents\VSCode Projects\Scene-NeRF\wandb\run-20221217_232049-35ql2ecd\files\code\kaolin-wisp\app\main.py code\kaolin-wisp\app\main.py
+2022-12-17 23:20:58,784 INFO    SenderThread:8196 [sender.py:transition_state():463] send defer: 8
+2022-12-17 23:20:58,784 DEBUG   HandlerThread:8196 [handler.py:handle_request():139] handle_request: defer
+2022-12-17 23:20:58,784 INFO    HandlerThread:8196 [handler.py:handle_request_defer():162] handle defer: 8
+2022-12-17 23:20:58,784 DEBUG   SenderThread:8196 [sender.py:send_request():317] send_request: defer
+2022-12-17 23:20:58,785 INFO    SenderThread:8196 [sender.py:send_request_defer():459] handle sender defer: 8
+2022-12-17 23:20:58,785 INFO    SenderThread:8196 [file_pusher.py:finish():168] shutting down file pusher
+2022-12-17 23:20:59,543 INFO    Thread-38 :8196 [upload_job.py:push():143] Uploaded file C:\Users\amanj\Documents\VSCode Projects\Scene-NeRF\wandb\run-20221217_232049-35ql2ecd\files\output.log
+2022-12-17 23:20:59,544 INFO    Thread-36 :8196 [upload_job.py:push():143] Uploaded file C:\Users\amanj\Documents\VSCode Projects\Scene-NeRF\wandb\run-20221217_232049-35ql2ecd\files\conda-environment.yaml
+2022-12-17 23:20:59,562 INFO    Thread-37 :8196 [upload_job.py:push():143] Uploaded file C:\Users\amanj\Documents\VSCode Projects\Scene-NeRF\wandb\run-20221217_232049-35ql2ecd\files\config.yaml
+2022-12-17 23:20:59,564 INFO    Thread-39 :8196 [upload_job.py:push():143] Uploaded file C:\Users\amanj\Documents\VSCode Projects\Scene-NeRF\wandb\run-20221217_232049-35ql2ecd\files\requirements.txt
+2022-12-17 23:20:59,634 INFO    Thread-40 :8196 [upload_job.py:push():143] Uploaded file C:\Users\amanj\Documents\VSCode Projects\Scene-NeRF\wandb\run-20221217_232049-35ql2ecd\files\wandb-summary.json
+2022-12-17 23:20:59,845 INFO    Thread-16 :8196 [sender.py:transition_state():463] send defer: 9
+2022-12-17 23:20:59,846 DEBUG   HandlerThread:8196 [handler.py:handle_request():139] handle_request: defer
+2022-12-17 23:20:59,846 INFO    HandlerThread:8196 [handler.py:handle_request_defer():162] handle defer: 9
+2022-12-17 23:20:59,846 DEBUG   SenderThread:8196 [sender.py:send_request():317] send_request: defer
+2022-12-17 23:20:59,847 INFO    SenderThread:8196 [sender.py:send_request_defer():459] handle sender defer: 9
+2022-12-17 23:20:59,847 INFO    SenderThread:8196 [file_pusher.py:join():173] waiting for file pusher
+2022-12-17 23:20:59,847 INFO    SenderThread:8196 [sender.py:transition_state():463] send defer: 10
+2022-12-17 23:20:59,847 DEBUG   HandlerThread:8196 [handler.py:handle_request():139] handle_request: defer
+2022-12-17 23:20:59,847 INFO    HandlerThread:8196 [handler.py:handle_request_defer():162] handle defer: 10
+2022-12-17 23:20:59,847 DEBUG   SenderThread:8196 [sender.py:send_request():317] send_request: defer
+2022-12-17 23:20:59,847 INFO    SenderThread:8196 [sender.py:send_request_defer():459] handle sender defer: 10
+2022-12-17 23:20:59,934 INFO    SenderThread:8196 [sender.py:transition_state():463] send defer: 11
+2022-12-17 23:20:59,935 DEBUG   HandlerThread:8196 [handler.py:handle_request():139] handle_request: defer
+2022-12-17 23:20:59,935 INFO    HandlerThread:8196 [handler.py:handle_request_defer():162] handle defer: 11
+2022-12-17 23:20:59,935 DEBUG   SenderThread:8196 [sender.py:send_request():317] send_request: defer
+2022-12-17 23:20:59,935 INFO    SenderThread:8196 [sender.py:send_request_defer():459] handle sender defer: 11
+2022-12-17 23:20:59,935 INFO    SenderThread:8196 [sender.py:transition_state():463] send defer: 12
+2022-12-17 23:20:59,936 DEBUG   SenderThread:8196 [sender.py:send():303] send: final
+2022-12-17 23:20:59,936 DEBUG   SenderThread:8196 [sender.py:send():303] send: footer
+2022-12-17 23:20:59,936 DEBUG   HandlerThread:8196 [handler.py:handle_request():139] handle_request: defer
+2022-12-17 23:20:59,937 INFO    HandlerThread:8196 [handler.py:handle_request_defer():162] handle defer: 12
+2022-12-17 23:20:59,937 DEBUG   SenderThread:8196 [sender.py:send_request():317] send_request: defer
+2022-12-17 23:20:59,937 INFO    SenderThread:8196 [sender.py:send_request_defer():459] handle sender defer: 12
+2022-12-17 23:20:59,939 DEBUG   HandlerThread:8196 [handler.py:handle_request():139] handle_request: poll_exit
+2022-12-17 23:20:59,939 DEBUG   SenderThread:8196 [sender.py:send_request():317] send_request: poll_exit
+2022-12-17 23:20:59,939 DEBUG   HandlerThread:8196 [handler.py:handle_request():139] handle_request: server_info
+2022-12-17 23:20:59,940 DEBUG   SenderThread:8196 [sender.py:send_request():317] send_request: server_info
+2022-12-17 23:20:59,941 DEBUG   HandlerThread:8196 [handler.py:handle_request():139] handle_request: get_summary
+2022-12-17 23:20:59,942 DEBUG   HandlerThread:8196 [handler.py:handle_request():139] handle_request: sampled_history
+2022-12-17 23:21:00,201 INFO    MainThread:8196 [wandb_run.py:_footer_history_summary_info():3408] rendering history
+2022-12-17 23:21:00,201 INFO    MainThread:8196 [wandb_run.py:_footer_history_summary_info():3440] rendering summary
+2022-12-17 23:21:00,201 INFO    MainThread:8196 [wandb_run.py:_footer_sync_info():3364] logging synced files
+2022-12-17 23:21:00,203 DEBUG   HandlerThread:8196 [handler.py:handle_request():139] handle_request: shutdown
+2022-12-17 23:21:00,203 INFO    HandlerThread:8196 [handler.py:finish():814] shutting down handler
+2022-12-17 23:21:00,937 INFO    WriterThread:8196 [datastore.py:close():279] close: C:\Users\amanj\Documents\VSCode Projects\Scene-NeRF\wandb\run-20221217_232049-35ql2ecd\run-35ql2ecd.wandb
+2022-12-17 23:21:01,203 INFO    SenderThread:8196 [sender.py:finish():1331] shutting down sender
+2022-12-17 23:21:01,205 INFO    SenderThread:8196 [file_pusher.py:finish():168] shutting down file pusher
+2022-12-17 23:21:01,205 INFO    SenderThread:8196 [file_pusher.py:join():173] waiting for file pusher
+2022-12-17 23:21:01,280 INFO    MainThread:8196 [internal.py:handle_exit():77] Internal process exited
