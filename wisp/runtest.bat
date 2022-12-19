@@ -1,0 +1,1 @@
+python app/main.py --config configs/vqad_nerf.yaml --dataset-path ../V8/V8_/ --dataset-num-workers 4 --wandb-project "vector-quantized-auto-decoder" --wandb-run-name test-vqad-nerf/V8 --wandb-viz-nerf-distance 5
