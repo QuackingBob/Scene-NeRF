@@ -1,3 +1,4 @@
+from typing import Tuple
 import torch.nn as nn
 import torch
 import numpy as np
@@ -65,6 +66,7 @@ class Octree:
             if node.children[index] is None:
                 return None
             return self._search(node.children[index], x, y, z)
+
 
 class PositionalEmbedder(nn.Module):
     def __init__(self, embedding_dim: int) -> None:
