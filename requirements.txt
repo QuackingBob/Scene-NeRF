@@ -3,3 +3,4 @@ numpy
 pillow
 pyyaml
 absl-py
+opencv-python
