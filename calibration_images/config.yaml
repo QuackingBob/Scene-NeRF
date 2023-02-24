@@ -1,0 +1,9 @@
+{
+  "depthmap": {
+        "method": "PATCH_MATCH",
+        "window_size": 5,
+        "min_depth": 0.1,
+        "max_depth": 100.0,
+        "cpu": 4
+    }
+}
