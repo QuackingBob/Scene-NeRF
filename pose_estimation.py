@@ -135,6 +135,43 @@ def visualize_camera_poses_and_orientation(pose_list, scale=1):
     plt.show()
 
 
+def heading_from_pose(pose):
+    """From a 4x4 pose matrix, extract rotation matrix and get euler angles
+    
+    pose:
+    R R R T
+    R R R T
+    R R R T
+    0 0 0 1
+
+    rotation matrix:
+    R R R
+    R R R
+    R R R
+
+    """
+    # Define a rotation matrix
+    R = pose[:3, :3]
+
+    # Define the identity matrix with known directional vectors
+    I = np.array([
+        [0, 0, 1],
+        [0, 1, 0],
+        [1, 0, 0]])
+
+    # Compute the inverse of the rotation matrix
+    Rinv = np.linalg.inv(R)
+
+    # Apply the inverse of the rotation matrix to the identity matrix
+    Irot = Rinv @ I
+
+    # Extract the theta and phi angles from the resulting matrix
+    theta = np.arctan2(Irot[2, 1], Irot[2, 2])
+    phi = np.arctan2(-Irot[2, 0], np.sqrt(Irot[0, 0]**2 + Irot[1, 0]**2))
+
+    return (theta, phi)
+
+
 def main():
     fx = 1.50889127e03 # focal lengths x
     fy = 1.49796532e03 # focal lengths y
@@ -148,6 +185,8 @@ def main():
 
     pose_list = estimate_camera_pose(images, K, distortion_coeff)
     print(pose_list)
+    angle_list = [heading_from_pose(i) for i in pose_list]
+    print(angle_list)
 
     # Visualize camera poses
     visualize_camera_poses_and_orientation(pose_list, scale=0.1)
