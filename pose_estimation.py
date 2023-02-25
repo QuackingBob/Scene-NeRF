@@ -3,14 +3,16 @@ import numpy as np
 import glob
 from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.pyplot as plt
+from calibration import ResizeWithAspectRatio
 
-image_paths = glob.glob('calibration_images/*.jpg')
-images = [cv2.imread(i) for i in image_paths]
+def detect_and_compute_akaze(image):
+    """Detects and computes keypoints and descriptors in an image."""
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    akaze = cv2.AKAZE_create()
+    kp, des = akaze.detectAndCompute(gray, None) # keypoint and description
+    return kp, des
 
-import numpy as np
-import cv2
-
-def detect_and_compute(image):
+def detect_and_compute_sift(image):
     """Detects and computes keypoints and descriptors in an image."""
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     sift = cv2.SIFT_create()
@@ -26,7 +28,17 @@ def flann_matcher(des1, des2):
     matches = flann.knnMatch(des1, des2, k=2)
     return matches
 
-def lowe_ratio_test(matches, threshold=0.7):
+def brute_force_matcher(des1, des2):
+    """Matches keypoints in two sets of descriptors using FLANN matcher."""
+    FLANN_INDEX_KDTREE = 0
+    index_params = dict(algorithm=FLANN_INDEX_KDTREE, trees=5)
+    search_params = dict(checks=50)
+    flann = cv2.FlannBasedMatcher(index_params, search_params)
+    brute_force_matcher = cv2.BruteForce
+    matches = flann.knnMatch(des1, des2, k=2)
+    return matches
+
+def lowe_ratio_test(matches, threshold=0.8):
     """Filters matches using Lowe's ratio test."""
     good_matches = []
     for m, n in matches:
@@ -42,8 +54,8 @@ def estimate_camera_pose(images, mtx, dist):
     # Iterate through image sequence
     for i in range(len(images) - 1):
         # Step 3: Detect and match keypoints
-        kp1, des1 = detect_and_compute(images[i])
-        kp2, des2 = detect_and_compute(images[i+1])
+        kp1, des1 = detect_and_compute_sift(images[i])
+        kp2, des2 = detect_and_compute_sift(images[i+1])
 
         # Match keypoints using FLANN matcher
         matches = flann_matcher(des1, des2)
@@ -58,7 +70,7 @@ def estimate_camera_pose(images, mtx, dist):
         # Step 4: Estimate fundamental matrix and essential matrix
         # F, mask = cv2.findFundamentalMat(pts1, pts2, cv2.FM_RANSAC, 0.1, 0.99)
         # E = mtx.T @ F @ mtx
-        E, mask = cv2.findEssentialMat(pts1, pts2, mtx, cv2.RANSAC, prob=0.99, threshold=1.0)
+        E, mask = cv2.findEssentialMat(pts1, pts2, mtx, cv2.RANSAC, prob=0.999, threshold=1.0)
 
         # Step 5: Recover camera poses
         _, R, t, mask = cv2.recoverPose(E, pts1, pts2, mtx)
@@ -174,15 +186,23 @@ def heading_from_pose(pose):
 
 
 def main():
-    fx = 1.50839653e3 # focal lengths x
-    fy = 1.49710157e3 # focal lengths y
-    cx = 9.98912401e2 # principal point of the camera x
-    cy = 5.53356162e2 # principal point of the camera y
+
+    image_paths = glob.glob('output/*.jpg')
+    # glob.glob('calibration_images/Calibration Iphone/Calibration Images/*.jpeg')
+    # glob.glob('calibration_images/*.jpg')
+    print(image_paths)
+    images = [ResizeWithAspectRatio(cv2.imread(i), width=1000) for i in image_paths]
+
+    fx = 1.00294889e+03 # 1.50839653e3 # focal lengths x
+    fy = 1.00168472e+03 # 1.49710157e3 # focal lengths y
+    cx = 4.88588193e+02 # 9.98912401e2 # principal point of the camera x
+    cy = 6.61380661e+02 # 5.53356162e2 # principal point of the camera y
 
     # Define the camera matrix
     K = np.array([[fx, 0, cx], [0, fy, cy], [0, 0, 1]])
 
-    distortion_coeff = np.array([-3.23935068e-1, -6.68856908e-1, -1.79469111e-3, -3.29352539e-3, 3.10882365])
+    distortion_coeff = np.array([0.06622152, -0.0631438, -0.00363991, -0.0006693, -0.3078563])
+    # np.array([-3.23935068e-1, -6.68856908e-1, -1.79469111e-3, -3.29352539e-3, 3.10882365])
 
     pose_list = estimate_camera_pose(images, K, distortion_coeff)
     print(pose_list)

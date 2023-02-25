@@ -1,0 +1,13 @@
+import cv2
+import numpy as np
+import glob
+from mpl_toolkits.mplot3d import Axes3D
+import matplotlib.pyplot as plt
+import pose_estimation
+
+def main():
+    if not os.path.exists('nerf_data'):
+        os.makedirs('output')
+
+if __name__ == "__main__":
+    main()
