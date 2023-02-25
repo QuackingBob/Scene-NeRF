@@ -52,3 +52,7 @@ for i in range(len(obj_points)):
     mean_error += error
 
 print("Mean reprojection error: {}".format(mean_error/len(obj_points)))
+
+info_file = open("camerainfo.txt", "w")
+info_file.write(f"Camera matrix:\n{K}\nDistortion Coefficients:\n{dist_coeff}\nMean reprojection error:\n{mean_error/len(obj_points)}")
+info_file.close()

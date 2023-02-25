@@ -14,7 +14,7 @@ def detect_and_compute(image):
     """Detects and computes keypoints and descriptors in an image."""
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     sift = cv2.SIFT_create()
-    kp, des = sift.detectAndCompute(gray, None)
+    kp, des = sift.detectAndCompute(gray, None) # keypoint and description
     return kp, des
 
 def flann_matcher(des1, des2):
