@@ -100,6 +100,41 @@ def visualize_camera_poses(pose_list, scale=1):
     plt.show()
 
 
+def visualize_camera_poses_and_orientation(pose_list, scale=1):
+    """Visualizes the camera poses in 3D using matplotlib."""
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection='3d')
+
+    # Extract camera positions and orientations
+    positions = [pose[:3, 3] for pose in pose_list]
+    orientations = [pose[:3, :3] for pose in pose_list]
+
+    # Scale positions
+    positions = np.array(positions) * scale
+
+    # Plot camera positions and orientations
+    for i in range(len(positions)):
+        ax.scatter(positions[i, 0], positions[i, 1], positions[i, 2], c='r', marker='o')
+
+        x, y, z = positions[i]
+        u, v, w = orientations[i] @ np.array([1, 0, 0])
+
+        ax.quiver(x, y, z, u, v, w, length=0.1, color='b')
+
+    # Set plot limits
+    ax.set_xlim3d([np.min(positions[:, 0]), np.max(positions[:, 0])])
+    ax.set_ylim3d([np.min(positions[:, 1]), np.max(positions[:, 1])])
+    ax.set_zlim3d([np.min(positions[:, 2]), np.max(positions[:, 2])])
+
+    # Set plot labels
+    ax.set_xlabel('X')
+    ax.set_ylabel('Y')
+    ax.set_zlabel('Z')
+    ax.set_title('Camera Poses')
+
+    plt.show()
+
+
 def main():
     fx = 1.50889127e03 # focal lengths x
     fy = 1.49796532e03 # focal lengths y
@@ -115,14 +150,7 @@ def main():
     print(pose_list)
 
     # Visualize camera poses
-    visualize_camera_poses(pose_list, scale=0.1)
-    # for i in range(len(images)):
-    #     image = images[i].copy()
-    #     axis_len = min(image.shape[:2]) // 2
-    #     cv2.drawFrameAxes(image, K, distortion_coeff, pose_list[i][:3, :4], axis_len)
-    #     cv2.imshow(f"Image {i}", image)
-    # cv2.waitKey(0)
-    # cv2.destroyAllWindows()
+    visualize_camera_poses_and_orientation(pose_list, scale=0.1)
 
 
 if __name__ == "__main__": 

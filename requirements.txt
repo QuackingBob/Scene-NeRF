@@ -1,6 +1,8 @@
-flax
 numpy
 pillow
 pyyaml
 absl-py
 opencv-python
+opencv-contrib-python
+matplotlib
+tqdm
