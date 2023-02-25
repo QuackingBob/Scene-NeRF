@@ -56,10 +56,11 @@ def estimate_camera_pose(images, mtx, dist):
         pts2 = np.float32([kp2[m.trainIdx].pt for m in good_matches])
 
         # Step 4: Estimate fundamental matrix and essential matrix
-        F, mask = cv2.findFundamentalMat(pts1, pts2, cv2.FM_RANSAC, 0.1, 0.99)
+        # F, mask = cv2.findFundamentalMat(pts1, pts2, cv2.FM_RANSAC, 0.1, 0.99)
+        # E = mtx.T @ F @ mtx
+        E, mask = cv2.findEssentialMat(pts1, pts2, mtx, cv2.RANSAC, prob=0.99, threshold=1.0)
 
         # Step 5: Recover camera poses
-        E = mtx.T @ F @ mtx
         _, R, t, mask = cv2.recoverPose(E, pts1, pts2, mtx)
 
         pose = np.zeros((4, 4))
@@ -173,15 +174,15 @@ def heading_from_pose(pose):
 
 
 def main():
-    fx = 1.50889127e03 # focal lengths x
-    fy = 1.49796532e03 # focal lengths y
-    cx = 9.98070558e02 # principal point of the camera x
-    cy = 5.51627933e+02 # principal point of the camera y
+    fx = 1.50839653e3 # focal lengths x
+    fy = 1.49710157e3 # focal lengths y
+    cx = 9.98912401e2 # principal point of the camera x
+    cy = 5.53356162e2 # principal point of the camera y
 
     # Define the camera matrix
     K = np.array([[fx, 0, cx], [0, fy, cy], [0, 0, 1]])
 
-    distortion_coeff = np.array([-2.84647382e-01, -1.13533408e+00, -6.32876907e-04, -2.12243539e-03, 4.18596457e+00])
+    distortion_coeff = np.array([-3.23935068e-1, -6.68856908e-1, -1.79469111e-3, -3.29352539e-3, 3.10882365])
 
     pose_list = estimate_camera_pose(images, K, distortion_coeff)
     print(pose_list)
