@@ -1,5 +1,7 @@
 import random
 import numpy as np
+import torch
+from tqdm import tqdm
 
 def sample_gaussian(mean, stddev):
     return random.gauss(mean, stddev)
@@ -24,17 +26,12 @@ def stratified_quadrature_sampling(t_n, t_f, N, density_func, color_func, ray_fu
     return C_r
 
 
-import torch
-import numpy as np
-import imageio
-from tqdm import tqdm
-
 def generate_image(model, pose, resolution=512, n_samples_coarse=64, n_samples_fine=128, device='cpu', cone_aperture=20):
     """
-    Generates an image by sampling a neural radiance field (NRF) model with a random pose using hierarchical sampling.
+    Generates an image by sampling a neural radiance field (NeRF) model with a random pose using hierarchical sampling.
 
     Args:
-        model (torch.nn.Module): The NRF model to sample.
+        model (torch.nn.Module): The NeRF model to sample.
         pose (np.ndarray): A 4x4 homogeneous transformation matrix representing the pose of the camera.
         resolution (int): The output image resolution (default=512).
         n_samples_coarse (int): The number of coarse samples to take per pixel (default=64).
@@ -95,11 +92,11 @@ def sample_rays_hierarchical(model, rays, n_samples_coarse, n_samples_fine, devi
     Samples the given rays using hierarchical sampling.
 
     Args:
-        model (torch.nn.Module): The NRF model to sample.
+        model (torch.nn.Module): The NeRF model to sample.
         rays (np.ndarray): A numpy array with shape (num_rays, 6) containing the ray origins and directions.
         n_samples_course: An integer, the number of course samples (course model) for hierarchical sampling
         n_samples_fine":  An integer, the number of fine samples (fine model) for hierarchical sampling
-        device: torch.device (cpu or gpu)
+        device: str (cpu or gpu)
     """
     n_rays = rays.shape[0]
     samples = np.zeros((n_rays, n_samples_coarse + n_samples_fine, 4), dtype=np.float32)
