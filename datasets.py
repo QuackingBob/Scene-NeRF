@@ -14,8 +14,8 @@ import jax
 import numpy as np
 from PIL import Image
 
-from nerf import utils
-from nerf import clip_utils
+import utils
+import clip_utils
 
 def get_dataset(split, args, clip_model = None):
     return dataset_dict[args.dataset](split, args, clip_model)

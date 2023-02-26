@@ -11,7 +11,7 @@ from jax import random
 import jax.numpy as jnp
 from transformers import FlaxCLIPModel
 
-from nerf import utils
+import utils
 
 FLAGS = flags.FLAGS
 

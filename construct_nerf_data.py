@@ -32,7 +32,7 @@ def save_json(images, poses, fname, path, fov, angle):
         cv2.imwrite(os.path.join(path, fname, f"i_{counter}.png"), image)
         counter += 1
     
-    with open(os.path.join(path, fname + ".json"), "w") as jsonfile:
+    with open(os.path.join(path, "transforms_" + fname + ".json"), "w") as jsonfile:
         json.dump(json_dict, jsonfile)
 
 
