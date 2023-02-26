@@ -1,5 +1,5 @@
 numpy
-pillow
+Pillow
 pyyaml
 absl-py
 opencv-python
@@ -7,3 +7,14 @@ opencv-contrib-python
 matplotlib
 tqdm
 scikit-learn
+
+# imports for jax nerf
+jax>=0.2.6
+jaxlib>=0.1.57
+flax>=0.2.2
+tensorboard>=2.4.0
+tensorflow>=2.3.1
+tensorflow-hub>=0.11.0
+transformers==4.8.2
+wandb==0.10.33
+tqdm==4.61.2

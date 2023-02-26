@@ -1,4 +1,4 @@
-### I referenced the google jax-nerf implementation to help me write this code
+### I based this on the google jax-nerf implementation and diet nerf implementation
 import collections
 import os
 from os import path
@@ -6,11 +6,15 @@ import pickle
 import flax
 import jax
 import jax.numpy as jnp
-import jax.scipy as jscipy
+import jax.scipy as jsp
+from absl import flags
 import numpy as np
 from PIL import Image
 import yaml
+import datasets
 
+BASE_DIR = ""
+INTERNAL = False
 
 @flax.struct.dataclass
 class TrainState:
@@ -245,3 +249,185 @@ def read_pickle(fn):
     with open(fn, 'rb') as f:
         data = pickle.load(f)
     return data
+
+
+def define_flags():
+    """Define flags for both training and evaluation modes."""
+    flags.DEFINE_string("train_dir", None, "where to store ckpts and logs")
+    flags.DEFINE_string("data_dir", None, "input data directory.")
+    flags.DEFINE_string("config", None,
+                        "using config files to set hyperparameters.")
+
+    # CLIP part Flags
+    flags.DEFINE_bool("use_semantic_loss", True,
+                      "whether use semantic loss or not")
+    flags.DEFINE_string("clip_model_name", "openai/clip-vit-base-patch32", "model type for CLIP")
+    flags.DEFINE_string("clip_output_dtype", "float16",
+                        "float32/ float16 (float16 for memory saving)")
+    flags.DEFINE_integer("sc_loss_every", 16,
+                         "no. of steps to take before performing semantic loss evaluation")
+    flags.DEFINE_float("sc_loss_mult", 1e-2,
+                       "weighting for semantic loss from CLIP")
+    flags.DEFINE_integer("random_ray_size", 300,
+                         "H and W of random rays size")
+    flags.DEFINE_integer("random_ray_downsample", 4,
+                         "the downsample factor of random rays, the random rays shape will be random_ray_size//random_ray_downsample")
+
+    # Dataset Flags
+    flags.DEFINE_integer("shuffle_seed", 0,
+                         "random seed for shuffling before selecting training set")
+    # TODO(pratuls): rename to dataset_loader and consider cleaning up
+    flags.DEFINE_enum("dataset", "blender",
+                      list(k for k in datasets.dataset_dict.keys()),
+                      "The type of dataset feed to nerf.")
+    flags.DEFINE_enum(
+        "batching", "single_image", ["single_image", "all_images"],
+        "source of ray sampling when collecting training batch,"
+        "single_image for sampling from only one image in a batch,"
+        "all_images for sampling from all the training images.")
+    flags.DEFINE_bool(
+        "white_bkgd", True, "using white color as default background."
+                            "(used in the blender dataset only)")
+    flags.DEFINE_integer("batch_size", 1024,
+                         "the number of rays in a mini-batch (for training).")
+    flags.DEFINE_integer("factor", 4,
+                         "the downsample factor of images, 0 for no downsample.")
+    flags.DEFINE_bool("spherify", False, "set for spherical 360 scenes.")
+    flags.DEFINE_bool(
+        "render_path", False, "render generated path if set true."
+                              "(used in the llff dataset only)")
+    flags.DEFINE_integer(
+        "llffhold", 8, "will take every 1/N images as LLFF test set."
+                       "(used in the llff dataset only)")
+    flags.DEFINE_bool(
+        "use_pixel_centers", False,
+        "If True, generate rays through the center of each pixel. Note: While "
+        "this is the correct way to handle rays, it is not the way rays are "
+        "handled in the original NeRF paper. Setting this TRUE yields ~ +1 PSNR "
+        "compared to Vanilla NeRF.")
+
+    # Model Flags
+    flags.DEFINE_string("model", "nerf", "name of model to use.")
+    flags.DEFINE_float("near", 2., "near clip of volumetric rendering.")
+    flags.DEFINE_float("far", 6., "far clip of volumentric rendering.")
+    flags.DEFINE_integer("net_depth", 8, "depth of the first part of MLP.")
+    flags.DEFINE_integer("net_width", 256, "width of the first part of MLP.")
+    flags.DEFINE_integer("net_depth_condition", 1,
+                         "depth of the second part of MLP.")
+    flags.DEFINE_integer("net_width_condition", 128,
+                         "width of the second part of MLP.")
+    flags.DEFINE_float("weight_decay_mult", 0, "The multiplier on weight decay")
+    flags.DEFINE_integer(
+        "skip_layer", 4, "add a skip connection to the output vector of every"
+                         "skip_layer layers.")
+    flags.DEFINE_integer("num_rgb_channels", 3, "the number of RGB channels.")
+    flags.DEFINE_integer("num_sigma_channels", 1,
+                         "the number of density channels.")
+    flags.DEFINE_bool("randomized", True, "use randomized stratified sampling.")
+    flags.DEFINE_integer("min_deg_point", 0,
+                         "Minimum degree of positional encoding for points.")
+    flags.DEFINE_integer("max_deg_point", 10,
+                         "Maximum degree of positional encoding for points.")
+    flags.DEFINE_integer("deg_view", 4,
+                         "Degree of positional encoding for viewdirs.")
+    flags.DEFINE_integer(
+        "num_coarse_samples", 64,
+        "the number of samples on each ray for the coarse model.")
+    flags.DEFINE_integer("num_fine_samples", 128,
+                         "the number of samples on each ray for the fine model.")
+    flags.DEFINE_bool("use_viewdirs", True, "use view directions as a condition.")
+    flags.DEFINE_float(
+        "noise_std", None, "std dev of noise added to regularize sigma output."
+                           "(used in the llff dataset only)")
+    flags.DEFINE_bool("lindisp", False,
+                      "sampling linearly in disparity rather than depth.")
+    flags.DEFINE_string("net_activation", "relu",
+                        "activation function used within the MLP.")
+    flags.DEFINE_string("rgb_activation", "sigmoid",
+                        "activation function used to produce RGB.")
+    flags.DEFINE_string("sigma_activation", "relu",
+                        "activation function used to produce density.")
+    flags.DEFINE_bool(
+        "legacy_posenc_order", False,
+        "If True, revert the positional encoding feature order to an older version of this codebase."
+    )
+
+    # Train Flags
+    flags.DEFINE_float("lr_init", 5e-4, "The initial learning rate.")
+    flags.DEFINE_float("lr_final", 5e-6, "The final learning rate.")
+    flags.DEFINE_integer(
+        "lr_delay_steps", 0, "The number of steps at the beginning of "
+                             "training to reduce the learning rate by lr_delay_mult")
+    flags.DEFINE_float(
+        "lr_delay_mult", 1., "A multiplier on the learning rate when the step "
+                             "is < lr_delay_steps")
+    flags.DEFINE_float("grad_max_norm", 0.,
+                       "The gradient clipping magnitude (disabled if == 0).")
+    flags.DEFINE_float("grad_max_val", 0.,
+                       "The gradient clipping value (disabled if == 0).")
+
+    flags.DEFINE_integer("max_steps", 1000000,
+                         "the number of optimization steps.")
+    flags.DEFINE_integer("stop_sc_loss", 1000000,
+                         "the number of sc_loss optimization steps")
+    flags.DEFINE_integer("save_every", 10000,
+                         "the number of steps to save a checkpoint.")
+    flags.DEFINE_integer("print_every", 100,
+                         "the number of steps between reports to tensorboard.")
+    flags.DEFINE_integer(
+        "render_every", 5000, "the number of steps to render a test image,"
+                              "better to be x00 for accurate step time record.")
+    flags.DEFINE_integer("gc_every", 10000,
+                         "the number of steps to run python garbage collection.")
+    flags.DEFINE_integer("few_shot", -1,
+                         "the number of images.")
+
+    # Eval Flags
+    flags.DEFINE_bool(
+        "eval_once", True,
+        "evaluate the model only once if true, otherwise keeping evaluating new"
+        "checkpoints if there's any.")
+    flags.DEFINE_bool("save_output", True,
+                      "save predicted images to disk if True.")
+    flags.DEFINE_integer(
+        "chunk", 1024,
+        "the size of chunks for evaluation inferences, set to the value that"
+        "fits your GPU/TPU memory.")
+    flags.DEFINE_bool("generate_gif_only", False,
+                      "in eval.py, we only generate GIF file for the trained model")
+
+
+def update_flags(args):
+    """Update the flags in `args` with the contents of the config YAML file."""
+    pth = path.join(BASE_DIR, args.config + ".yaml")
+    with open_file(pth, "r") as fin:
+        configs = yaml.load(fin, Loader=yaml.FullLoader)
+    # Only allow args to be updated if they already exist.
+    invalid_args = list(set(configs.keys()) - set(dir(args)))
+    if invalid_args:
+        raise ValueError(f"Invalid args {invalid_args} in {pth}.")
+    args.__dict__.update(configs)
+
+def open_file(pth, mode="r"):
+    if not INTERNAL:
+        return open(pth, mode=mode)
+
+
+def file_exists(pth):
+    if not INTERNAL:
+        return path.exists(pth)
+
+
+def listdir(pth):
+    if not INTERNAL:
+        return os.listdir(pth)
+
+
+def isdir(pth):
+    if not INTERNAL:
+        return path.isdir(pth)
+
+
+def makedirs(pth):
+    if not INTERNAL:
+        os.makedirs(pth)

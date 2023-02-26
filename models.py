@@ -1,3 +1,6 @@
+"""
+I referenced the jaxnerf and puttin nerf on a diet implementations to help me write this
+"""
 from typing import Any, Callable
 from flax import linen as nn
 from jax import random

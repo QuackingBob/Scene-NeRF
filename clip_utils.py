@@ -1,3 +1,6 @@
+"""
+This is based on the jaxnerf and puttin nerf on a diet implementations
+"""
 import math
 from typing import Optional
 from absl import flags

@@ -1,3 +1,6 @@
+"""
+This is based on the jaxnerf and puttin nerf on a diet implementations
+"""
 INTERNAL = False
 import json
 import os, time

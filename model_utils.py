@@ -1,3 +1,6 @@
+"""
+I referenced the google jaxnerf and puttin nerf on a diet implementations to help me write this
+"""
 import functools
 from typing import Any, Callable
 

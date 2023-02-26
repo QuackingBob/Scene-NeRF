@@ -1,3 +1,6 @@
+"""
+Training script based on jaxnerf and putting nerf on a diet implementations
+"""
 import functools
 import gc
 import time
@@ -14,10 +17,10 @@ import numpy as np
 # import wandb
 from tqdm import tqdm
 
-from nerf import datasets
-from nerf import models
-from nerf import utils
-from nerf import clip_utils
+import datasets
+import models
+import utils
+import clip_utils
 
 FLAGS = flags.FLAGS
 
