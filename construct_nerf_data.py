@@ -38,30 +38,30 @@ def save_json(images, poses, fname, path, fov, angle):
 
 
 def main():
-    if not os.path.exists('nerf_data'):
-        os.makedirs('nerf_data')
+    if not os.path.exists('temp/nerf_data'):
+        os.makedirs('temp/nerf_data')
     
-    if not os.path.exists('nerf_data/train'):
-        os.makedirs('nerf_data/train')
-        os.makedirs('nerf_data/test')
-        os.makedirs('nerf_data/val')
+    if not os.path.exists('temp/nerf_data/train'):
+        os.makedirs('temp/nerf_data/train')
+        os.makedirs('temp/nerf_data/test')
+        os.makedirs('temp/nerf_data/val')
 
     width = 1000
     
-    image_paths = glob.glob('output/*.jpg')
+    image_paths = glob.glob('temp/sceneoutput/*.jpg')
     print(image_paths)
     images = [ResizeWithAspectRatio(cv2.imread(i), width=width) for i in image_paths]
 
-    fx = 1.00294889e+03 # focal lengths x
-    fy = 1.00168472e+03 # focal lengths y
-    cx = 4.88588193e+02 # principal point of the camera x
-    cy = 6.61380661e+02 # principal point of the camera y
+    fx = 3.21311341e+03 # focal lengths x
+    fy = 2.17976033e+03 # focal lengths y
+    cx = 5.04751493e+02 # principal point of the camera x
+    cy = 2.74280837e+02 # principal point of the camera y
 
     # Define the camera matrix
     K = np.array([[fx, 0, cx], [0, fy, cy], [0, 0, 1]])
 
     # define distortion coeff
-    distortion_coeff = np.array([0.06622152, -0.0631438, -0.00363991, -0.0006693, -0.3078563])
+    distortion_coeff = np.array([-4.43103094e+00, 3.21072297e+02, 1.32088756e-01, 3.73649112e-02, -5.95389043e+03])
 
     # get field of view param (we need fovx to train the nerf)
     fov_x = np.rad2deg(2 * np.arctan2(width, 2 * fx))
@@ -83,9 +83,9 @@ def main():
     test_images, test_poses = zip(*test)
     val_images, val_poses = zip(*val)
 
-    save_json(train_images, train_poses, "train", "nerf_data", fov_x, 0.012566370614359171)
-    save_json(test_images, test_poses, "test", "nerf_data", fov_x, 0.012566370614359171)
-    save_json(val_images, val_poses, "val", "nerf_data", fov_x, 0.012566370614359171)
+    save_json(train_images, train_poses, "train", "temp/nerf_data", fov_x, 0.0) # 0.012566370614359171
+    save_json(test_images, test_poses, "test", "temp/nerf_data", fov_x, 0.0)
+    save_json(val_images, val_poses, "val", "temp/nerf_data", fov_x, 0.0)
 
 
 if __name__ == "__main__":

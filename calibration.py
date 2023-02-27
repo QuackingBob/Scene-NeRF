@@ -34,7 +34,7 @@ def main():
     obj_points = [] # 3D points in real world space
 
     # Load the calibration images
-    images = glob.glob('calibration_images/Calibration Iphone/Calibration Images/*.jpeg')
+    images = glob.glob('temp/output/*.jpg')
     print(images)
 
     # Whether to visualize or not
@@ -45,8 +45,8 @@ def main():
         # Load the image and convert to grayscale
         img = cv2.imread(fname)
         img = ResizeWithAspectRatio(img, width=1000)
-        cv2.imshow("img raw", ResizeWithAspectRatio(img, width=500))
-        cv2.waitKey(0)
+        # cv2.imshow("img raw", ResizeWithAspectRatio(img, width=500))
+        # cv2.waitKey(0)
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
         # Detect the calibration pattern
@@ -64,9 +64,11 @@ def main():
 
             img = cv2.drawChessboardCorners(img, pattern_size, img_corners, ret)
 
-        if visualize:
+        if visualize and ret:
             cv2.imshow('img', ResizeWithAspectRatio(img, width=500))
-            cv2.waitKey(0)
+            cv2.waitKey(1500)
+
+    print(f"Processed {len(images)} images")
 
     # Calibrate the camera
     ret, K, dist_coeff, rvecs, tvecs = cv2.calibrateCamera(obj_points, img_points, gray.shape[::-1], None, None)
@@ -86,8 +88,8 @@ def main():
 
     print("Mean reprojection error: {}".format(mean_error/len(obj_points)))
 
-    info_file = open("camerainfoiphone.txt", "a")
-    info_file.write(f"Camera matrix:\n{K}\nDistortion Coefficients:\n{dist_coeff}\nMean reprojection error:\n{mean_error/len(obj_points)}")
+    info_file = open("camerainfodrone.txt", "a")
+    info_file.write(f"\n\nCamera matrix:\n{K}\nDistortion Coefficients:\n{dist_coeff}\nMean reprojection error:\n{mean_error/len(obj_points)}")
     info_file.close()
 
 

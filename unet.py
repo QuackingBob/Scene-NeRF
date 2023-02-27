@@ -1,5 +1,6 @@
 import torch
 import torch.nn as nn
+from einops import rearrange
 
 
 class Block(nn.Module):
@@ -48,6 +49,20 @@ class Decoder(nn.Module):
             x = encoder_features[i] + x
             x = self.deconv_blocks[i](x)
         return x
+
+
+class SinusoidalPosEmb(nn.Module):
+    def __init__(self, device, dim):
+        super(SinusoidalPosEmb, self).__init__()
+        self.device = device
+        self.dim = dim
+
+    def forward(self, time):
+        half_dim = self.dim//2
+        emb = torch.log(10000) / (half_dim - 1)
+        emb = torch.exp(torch.arange(half_dim, dtype=self.dtype) * -emb)
+        emb = rearrange(time, "i -> i 1") * rearrange(emb, "j -> 1 j")
+        return torch.concatenate([torch.sin(emb), torch.cos(emb)], axis=-1, dtype=self.dtype)
 
 
 class Unet(nn.Module):

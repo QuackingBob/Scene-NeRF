@@ -2,14 +2,14 @@ import cv2
 import os
 
 # Open the video file
-vidcap = cv2.VideoCapture('videos/IMG_2104.MOV')
+vidcap = cv2.VideoCapture('temp/scene.mp4')
 
 # Time interval between each frame
-dt = 0.2  # in seconds
+dt = 1.0  # in seconds
 
 # Create a folder to store the output images
-if not os.path.exists('output'):
-    os.makedirs('output')
+if not os.path.exists('temp/sceneoutput'):
+    os.makedirs('temp/sceneoutput')
 
 # Initialize variables
 success = True
@@ -26,7 +26,7 @@ while success:
     
     # Save the image to disk at regular intervals
     if success:
-        cv2.imwrite(os.path.join('output', f"frame{count:04}.jpg"), image)
+        cv2.imwrite(os.path.join('temp/sceneoutput', f"frame{count:04}.jpg"), image)
         count += 1
 
 # Release the video file and close the output window
