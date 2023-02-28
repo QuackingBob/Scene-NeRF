@@ -111,6 +111,8 @@ test_img = rearrange(sample_image * 255.0, 'c h w -> h w c')
 wandb.log({"examples": [wandb.Image(test_img, caption="example image original")]})
 test_img_input = sample_image
 
+wandb.watch(model, mse_loss, log="all", log_graph=True)
+
 for epoch in range(num_epochs):
 
     model.train()
