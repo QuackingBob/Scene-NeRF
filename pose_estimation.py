@@ -84,6 +84,85 @@ def estimate_camera_pose(images, mtx, dist):
     return pose_list
 
 
+def transform_cam2_to_world_cam_space(T_cam1_world, T_cam1_cam2):
+    # Get the rotation matrix from cam1 to world space
+    R_cam1_world = T_cam1_world[:3, :3]
+
+    # Get the rotation matrix from cam1 to cam2
+    R_cam1_cam2 = T_cam1_cam2[:3, :3]
+
+    # Get the translation vector from cam1 to cam2
+    t_cam1_cam2 = T_cam1_cam2[:3, 3]
+
+    # Compute the rotation matrix from cam2 to world space
+    R_cam2_world = R_cam1_world @ R_cam1_cam2.T
+    # R_cam2_world = (T_cam1_cam2.dot(T_cam1_world))[:3, :3]
+
+    # Compute the translation vector from cam2 to world space
+    t_cam2_world = R_cam2_world @ t_cam1_cam2
+
+    # Construct the transformation matrix from cam2 to world space
+    T_cam2_world = np.eye(4)
+    T_cam2_world[:3, :3] = R_cam2_world
+    T_cam2_world[:3, 3] = t_cam2_world
+
+    return T_cam2_world
+
+
+def estimate_camera_pose_world(images, mtx, dist):
+    """Estimates the camera pose from a sequence of images and camera matrix."""
+    # Initialize camera pose list
+    pose_list = [np.eye(4)] * len(images)
+
+    # Iterate through image sequence
+    for i in range(len(images) - 1):
+        # Step 3: Detect and match keypoints
+        kp1, des1 = detect_and_compute_sift(images[i])
+        kp2, des2 = detect_and_compute_sift(images[i+1])
+
+        # Match keypoints using FLANN matcher
+        matches = flann_matcher(des1, des2)
+
+        # Filter matches using Lowe's ratio test
+        good_matches = lowe_ratio_test(matches)
+
+        # Extract matched keypoints
+        pts1 = np.float32([kp1[m.queryIdx].pt for m in good_matches])
+        pts2 = np.float32([kp2[m.trainIdx].pt for m in good_matches])
+
+        # Step 4: Estimate fundamental matrix and essential matrix
+        # F, mask = cv2.findFundamentalMat(pts1, pts2, cv2.FM_RANSAC, 0.1, 0.99)
+        # E = mtx.T @ F @ mtx
+        E, mask = cv2.findEssentialMat(pts1, pts2, mtx, cv2.RANSAC, prob=0.999, threshold=1.0)
+
+        # Step 5: Recover camera poses
+        _, R, t, mask = cv2.recoverPose(E, pts1, pts2, mtx)
+
+        # Step 6: Triangulate 3D points
+        P1 = mtx.dot(np.eye(3, 4))
+        P2 = mtx.dot(np.hstack((R, t)))
+        points_3d_homogeneous = cv2.triangulatePoints(P1, P2, pts1.T, pts2.T)
+        points_3d = cv2.convertPointsFromHomogeneous(points_3d_homogeneous.T)
+        points_3d = points_3d.squeeze()
+
+        # Step 7: Solve for camera pose in world coordinate system
+        ret, rvec, tvec, _ = cv2.solvePnPRansac(objectPoints=points_3d, imagePoints=pts1, cameraMatrix=mtx, distCoeffs=dist)
+        R, _ = cv2.Rodrigues(rvec)
+        C1 = np.concatenate((R, tvec), axis=1)
+        C1 = np.vstack((C1, [0, 0, 0, 1]))
+        ret, rvec, tvec, _ = cv2.solvePnPRansac(points_3d, pts2, mtx, dist)
+        R, _ = cv2.Rodrigues(rvec)
+        C2 = np.concatenate((R, tvec), axis=1)
+        C2 = np.vstack((C2, [0, 0, 0, 1]))
+        # Offset pose by world coordinate of previous camera (model to world coordinaes)
+        C2_world = transform_cam2_to_world_cam_space(pose_list[i], C2)
+        pose_list[i+1] = C2_world
+
+        print(f"Analyzed {i+1} images")
+
+    return pose_list
+
+
 def visualize_camera_poses(pose_list, scale=1):
     """Visualizes the camera poses in 3D using matplotlib."""
     fig = plt.figure()
@@ -130,7 +209,7 @@ def visualize_camera_poses_and_orientation(pose_list, scale=1):
         ax.scatter(positions[i, 0], positions[i, 1], positions[i, 2], c='r', marker='o')
 
         x, y, z = positions[i]
-        u, v, w = orientations[i] @ np.array([1, 0, 0])
+        u, v, w = orientations[i] @ np.array([0.3, 0, 0])
 
         ax.quiver(x, y, z, u, v, w, length=0.1, color='b')
 
@@ -187,7 +266,9 @@ def heading_from_pose(pose):
 
 def main():
 
-    image_paths = glob.glob('output/*.jpg')
+    image_paths = glob.glob('temp/output/*.jpg')
+    # glob.glob('temp/output/*.jpg')
+    # glob.glob('output/*.jpg')
     # glob.glob('calibration_images/Calibration Iphone/Calibration Images/*.jpeg')
     # glob.glob('calibration_images/*.jpg')
     print(image_paths)
@@ -201,11 +282,14 @@ def main():
     # Define the camera matrix
     K = np.array([[fx, 0, cx], [0, fy, cy], [0, 0, 1]])
 
+    # Define distortion coefficients
     distortion_coeff = np.array([0.06622152, -0.0631438, -0.00363991, -0.0006693, -0.3078563])
     # np.array([-3.23935068e-1, -6.68856908e-1, -1.79469111e-3, -3.29352539e-3, 3.10882365])
 
-    pose_list = estimate_camera_pose(images, K, distortion_coeff)
+    # Find camera poses
+    pose_list = estimate_camera_pose_world(images, K, distortion_coeff)
     print(pose_list)
+    # Find camera spherical heading coordinates
     angle_list = [heading_from_pose(i) for i in pose_list]
     print(angle_list)
 
